@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+    </head>
+    <body>
+        {% extends "vistaprevia/base.html" %}
+        {% block contenedor%}
+        <div id = "contenedor">
+            <div id = "contenedor1">
+                <header>
+                    <a href = "iracontenedor"> Ir a contenido principal</a>
+                    <div class = "compra">
+                        [Ir a compra]
+                    </div>
+                    Venta de libros Online
+                </header>
+            </div>
+            <div id = "contenedor2">
+                <nav>
+                    [aqui va el menu]
+                </nav>
+            </div>
+            <div id = "contenedor3">
+                <section>
+                    <a name="contenido"></a>
+                    <div class = "contenidoSection">
+                        {% block content %}{% endblock %}
+                    </div>
+                </section>
+            </div>
+            <div id = "contenedor4">
+                <aside>
+                    <div class = "contenidoAside">
+                        [caja de busqueda
+                        <br />
+                        [listado de categorias]
+                    </div>
+                </aside>
+            <div id = "contenedor5">
+                <footer>
+                    [contenido de la pagina]
+                </footer>
+            </div>
+        </div>
+        {% endblock %}
+        
+        
+    </body>
+</html>
