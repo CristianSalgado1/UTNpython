@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+    </head>
+        <body>
+
+{% extends "vistaprevia/plantilla.html %}
+{% block content %}
+
+<h1> El id de la imagen es :{{producto.id}}</h1>
+{% load staticfiles %}
+<img src = "/static/vistaprevia/{{producto.ruta_imagen}}" alt = "My image" width = "20%" />
+<img src = "{% static 'vistaprevia/' %}{{producto.ruta_imagen}}" alt = "My image" width = "20%" />
+
+<a href = "{% url  'verimagenes' %}">Ver todas las imagenes </a>
+
+{% endblock %}
+    </body>
+</html>
+
