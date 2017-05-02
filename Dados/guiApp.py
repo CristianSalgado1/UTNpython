@@ -122,7 +122,7 @@ class dados:
         for a in range(0, int(self.cuatroE.get())):
             rta.append(randint(1, 4))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         cuatroR = Label(self.myParent,  text = resultado)
         cuatroR.grid(row = 0,  column = 2)
     
@@ -133,7 +133,7 @@ class dados:
         for a in range(0, int(self.seisE.get())):
             rta.append(randint(1, 6))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         seisR = Label(self.myParent,  text = resultado)
         seisR.grid(row = 1,  column = 2)
             
@@ -142,7 +142,7 @@ class dados:
         for a in range(0, int(self.ochoE.get())):
             rta.append(randint(1, 8))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         ochoR = Label(self.myParent,  text = resultado)
         ochoR.grid(row = 2,  column = 2)
             
@@ -153,7 +153,7 @@ class dados:
         for a in range(0, int(self.doceE.get())):
             rta.append(randint(1, 10))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         doceR = Label(self.myParent,  text = resultado)
         doceR.grid(row = 3,  column = 2)
     
@@ -163,7 +163,7 @@ class dados:
         for a in range(0, int(self.doceE.get())):
             rta.append(randint(1, 12))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         doceR = Label(self.myParent,  text = resultado)
         doceR.grid(row = 4,  column = 2)
     
@@ -173,7 +173,7 @@ class dados:
         for a in range(0, int(self.veinteE.get())):
             rta.append(randint(1, 20))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         veinteR = Label(self.myParent,  text = resultado)
         veinteR.grid(row = 5,  column = 2)
     
@@ -182,7 +182,7 @@ class dados:
         for a in range(0, int(self.cienE.get())):
             rta.append(randint(1, 100))
             resultado = sum(rta)
-            self.resultados.append(resultado)
+        self.resultados.append(resultado)
         cienR = Label(self.myParent,  text = resultado)
         cienR.grid(row = 6,  column = 2)
     def tirartodos(self):
