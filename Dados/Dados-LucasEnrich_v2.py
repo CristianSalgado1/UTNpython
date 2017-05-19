@@ -1,9 +1,16 @@
-
+import os
+import shelve
 from tkinter import *
 from random import *
 
+
 class dados:
-    resultados = []    
+    resultados = [] 
+    dados = {"Cuatro":0,  "Seis":0,  "Ocho":0,  "Diez":0,  "Doce":0,  "Veinte":0,  "Cien":0}
+    guardarA = "default"
+    guardados = os.listdir('guardados')
+    
+     
     def __init__(self,  parent = None,  **configs):
         #Ventana Principal#
         self.myParent = parent
@@ -11,7 +18,7 @@ class dados:
 
         
         
-       # dados = ["Seis",  "Ocho",  "Diez",  "Doce",  "Viente",  "Cien"]
+       
         
         ###########TIRA TODOS LOS DADOS##################
         Button(self.myParent,  text = "Tirar Dados",  command = self.tirartodos).grid(row = 7,  column = 2)
@@ -115,6 +122,29 @@ class dados:
         cienT = Button(self.myParent,  text = "Tirar Cienes",  command = self.tirarcien)
         cienT.grid(row = 6,  column = 3)
         
+        ####RESETEAR##
+        resetB = Button(self.myParent,  text = "Resetear",  command = self.reset)
+        resetB.grid(row = 8,  column = 4)
+        
+        ## Guardar ##
+        
+        guardarB= Button(self.myParent,  text = "Guardar Dados",  command = self.guardar)
+        guardarB.grid(row = 9,  column = 4)
+
+        self.guardarT = Entry(self.myParent)
+        self.guardarT.grid(row = 9,  column = 3)
+        
+        ##Cargar##
+        self.variable = StringVar(self.myParent)
+        self.variable.set(self.guardados[0]) # default value
+
+        self.optionList = tuple([tuple(row) for row in self.guardados])
+        self.w = OptionMenu(self.myParent, self.variable,  *self.optionList)
+        self.w.grid(row = 9,  column = 0)
+        
+        b = Button(self.myParent,  text = "Cargar Guardados",  command = self.cargar)
+        b.grid(row = 9, column = 1)
+        
     
         
     def tirarcuatro(self):
@@ -123,8 +153,9 @@ class dados:
             rta.append(randint(1, 4))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        cuatroR = Label(self.myParent,  text = resultado)
-        cuatroR.grid(row = 0,  column = 2)
+        self.cuatroR = Label(self.myParent,  text = resultado)
+        self.cuatroR.grid(row = 0,  column = 2)
+        self.dados['Cuatro'] = rta
     
     
         
@@ -134,18 +165,19 @@ class dados:
             rta.append(randint(1, 6))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        seisR = Label(self.myParent,  text = resultado)
-        seisR.grid(row = 1,  column = 2)
-            
+        self.seisR = Label(self.myParent,  text = resultado)
+        self.seisR.grid(row = 1,  column = 2)
+        self.dados['Seis'] = rta
+        
     def tirarocho(self):
         rta = []
         for a in range(0, int(self.ochoE.get())):
             rta.append(randint(1, 8))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        ochoR = Label(self.myParent,  text = resultado)
-        ochoR.grid(row = 2,  column = 2)
-            
+        self.ochoR = Label(self.myParent,  text = resultado)
+        self.ochoR.grid(row = 2,  column = 2)
+        self.dados['Ocho'] = rta
     
         
     def tirardiez(self):
@@ -154,8 +186,9 @@ class dados:
             rta.append(randint(1, 10))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        doceR = Label(self.myParent,  text = resultado)
-        doceR.grid(row = 3,  column = 2)
+        self.diezR = Label(self.myParent,  text = resultado)
+        self.diezR.grid(row = 3,  column = 2)
+        self.dados['Diez'] = rta
     
     
     def tirardoce(self):
@@ -164,8 +197,9 @@ class dados:
             rta.append(randint(1, 12))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        doceR = Label(self.myParent,  text = resultado)
-        doceR.grid(row = 4,  column = 2)
+        self.doceR = Label(self.myParent,  text = resultado)
+        self.doceR.grid(row = 4,  column = 2)
+        self.dados['Doce'] = rta
     
         
     def tirarveinte(self):
@@ -174,8 +208,9 @@ class dados:
             rta.append(randint(1, 20))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        veinteR = Label(self.myParent,  text = resultado)
-        veinteR.grid(row = 5,  column = 2)
+        self.veinteR = Label(self.myParent,  text = resultado)
+        self.veinteR.grid(row = 5,  column = 2)
+        self.dados['Veinte'] = rta
     
     def tirarcien(self):
         rta = []
@@ -183,8 +218,9 @@ class dados:
             rta.append(randint(1, 100))
             resultado = sum(rta)
         self.resultados.append(resultado)
-        cienR = Label(self.myParent,  text = resultado)
-        cienR.grid(row = 6,  column = 2)
+        self.cienR = Label(self.myParent,  text = resultado)
+        self.cienR.grid(row = 6,  column = 2)
+        self.dados['Cien'] = rta
     def tirartodos(self):
         self.tirarcuatro()
         self.tirarseis()
@@ -196,10 +232,54 @@ class dados:
         total = sum(self.resultados)
         totalR = Label(self.myParent,  text = total)
         totalR.grid(row = 8,  column =2)
-        self.reset()
+    
     def reset(self):
         self.resultados = []
+    def guardar(self):
+        os.chdir('guardados')
+        self.guardarA = self.guardarT.get()
+        archivo = shelve.open(str(self.guardarA))
+        archivo['a'] = self.dados
+        archivo.close()
+        os.chdir('..')
+        self.guardados = os.listdir('guardados')
+        self.variable = StringVar(self.myParent)
+        self.variable.set(self.guardados[0]) # default value
+        self.optionList = tuple([tuple(row) for row in self.guardados])
+        self.w = OptionMenu(self.myParent, self.variable,  *self.optionList)
+        self.w.grid(row = 9,  column = 0)
         
+    def cargar(self):
+        os.chdir('guardados')
+        dbCargada = self.variable.get()
+        regex = re.compile('[^a-zA-Z0-9_]')
+        archivoD = regex.sub('', dbCargada)
+        archivo = shelve.open(archivoD)
+        dictArchivo =archivo["a"]
+        print(archivo['a'])
+        valores = archivo['a'].values()
+        print(valores)
+        #totalR = Label(self.myParent,  text = todos)
+        #totalR.grid(row = 8,  column =2)    
+        
+        self.cuatroR = Label(self.myParent,  text = str(dictArchivo['Cuatro']))
+        self.cuatroR.grid(row = 0,  column = 2)
+        self.seisR = Label(self.myParent,  text = str(dictArchivo['Seis']))
+        self.seisR.grid(row = 1,  column = 2)
+        self.ochoR = Label(self.myParent,  text = str(dictArchivo['Ocho']))
+        self.ochoR.grid(row = 2,  column = 2)
+        self.diezR = Label(self.myParent,  text = str(dictArchivo['Diez']))
+        self.diezR.grid(row = 3,  column = 2)
+        self.doceR = Label(self.myParent,  text = str(dictArchivo['Doce']))
+        self.doceR.grid(row = 4,  column = 2)
+        self.veinteR = Label(self.myParent,  text = str(dictArchivo['Veinte']))
+        self.veinteR.grid(row = 5,  column = 2)
+        self.cienR = Label(self.myParent,  text = str(dictArchivo['Cien']))
+        self.cienR.grid(row = 6,  column = 2)
+
+        archivo.close()
+        os.chdir('..')
+    
         
 if __name__ =="__main__":
     root = Tk()
